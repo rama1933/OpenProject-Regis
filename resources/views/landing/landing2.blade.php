@@ -39,8 +39,7 @@
 
             <div class="row justify-content-center ">
                 <div class="col-xl-9 d-flex align-items-center justify-content-between">
-                    <h1 class="logo"><a href="#">UUPD SAMSAT HSS</a></h1>
-
+                    <h1 class="logo"><a href="#">SAMSAT KANDANGAN</a></h1>
 
                     <nav class="nav-menu d-none d-lg-block">
 
@@ -61,7 +60,7 @@
 
                     <div class="card" style="background-color:rgba(0,0,0,0.5);">
                         <div class="card-header">
-                            <h1>Formulir Pendafataran PKB</h1>
+                            <h1>Form Pendafataran PKB</h1>
                         </div>
 
                         <div class="col-xl-12 mt-4 mb-4">
