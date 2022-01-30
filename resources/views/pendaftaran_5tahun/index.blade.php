@@ -35,10 +35,11 @@
                                 <div class="card">
                                     <div class="card-header">
                                         {{-- @if (auth()->user()->role=='admin') --}}
-                                        <a href="{{ route('pendaftaran_tambah') }}" class="btn btn-primary float-right">
+                                        <a href="{{ route('pendaftaran_5tahun_tambah') }}"
+                                            class="btn btn-primary float-right">
                                             <i class="fa fa-plus"> Tambah</i></a>
                                         {{-- @endif --}}
-                                        <h3 class="card-title">Data Pendaftaran Ulang 1 Tahun</h3>
+                                        <h3 class="card-title">Data Pendaftaran Ulang 5 Tahun</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
@@ -54,7 +55,7 @@
                                         @endif
                                         <div id="cetak_filter" class="mb-4">
                                             <p>Cetak Berdasarkan :</p>
-                                            <form action="{{ url('') }}/pendaftaran_pdf" class="form-inline">
+                                            <form action="{{ url('') }}/pendaftaran_5tahun_pdf" class="form-inline">
                                                 {{-- <div class="form-group mr-2">
                                                     <select name="jenis" class="form-control">
                                                         <option value="">Jenis Pendaftaran</option>
@@ -96,6 +97,8 @@
                                                         <th>Pajak</th>
                                                         <th>Stnk</th>
                                                         <th>Bpkb</th>
+                                                        <th>Gambar No Rangka</th>
+                                                        <th>Gambar No Mesin</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -137,13 +140,27 @@
                                                                 </i>
                                                             </a>
                                                         </td>
-                                                        <td> <a href="{{ route('pendaftaran_edit',$pendaftaran->id) }}"
+                                                        <td>
+                                                            <a href="{{ url('') }}/storage/{{ $pendaftaran->no_rangka_upload }}"
+                                                                target="_blank" class="btn btn-sm btn-primary edit">
+                                                                <i class="fa fa-download">
+                                                                </i>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ url('') }}/storage/{{ $pendaftaran->no_mesin_upload }}"
+                                                                target="_blank" class="btn btn-sm btn-primary edit">
+                                                                <i class="fa fa-download">
+                                                                </i>
+                                                            </a>
+                                                        </td>
+                                                        <td> <a href="{{ route('pendaftaran_5tahun_edit',$pendaftaran->id) }}"
                                                                 class="btn btn-sm btn-primary my-2"> <i
                                                                     class="fa fa-pen">
                                                                 </i></a>
-                                                            <a href="{{ route('pendaftaran_hapus',$pendaftaran->id) }}"
+                                                            <a href="{{ route('pendaftaran_5tahun_hapus',$pendaftaran->id) }}"
                                                                 class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                                    onclick="return confirm('Hapus data {{  $pendaftaran->id  }} ?')">
+                                                                    onclick="return confirm('Hapus data {{  $pendaftaran->nama  }} ?')">
                                                                 </i></a>
                                                         </td>
                                                     </tr>

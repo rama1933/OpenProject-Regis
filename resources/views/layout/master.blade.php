@@ -79,46 +79,66 @@
 
             <div class="sidebar">
 
-
+                @if (auth()->user()->role == 'user')
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
 
-                        <li class="nav-header"> DATA</li>
+                        {{-- <li class="nav-header"> DATA</li> --}}
 
                         <li class="nav-item">
-                            <a href="{{ route('pendaftaran') }}" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                            <a href="{{ route('dashboard_user') }}" class="nav-link">
+                                <i class="nav-icon fas fa-fire"></i>
                                 <p>
-                                    Data Pendaftaran
+                                    Dashboard
                                 </p>
                             </a>
                         </li>
 
+                        @endif
+
+                        @if (auth()->user()->role == 'admin')
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                data-accordion="false">
+
+                                <li class="nav-header"> DATA</li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('dashboard_user') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-fire"></i>
+                                        <p>
+                                            Dashboard
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-header"> PENGATURAN</li>
+                                <li class="nav-item">
+                                    <a href="{{ route('user') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>
+                                            User
+                                        </p>
+                                    </a>
+                                </li>
+
+                                @endif
 
 
-                        <li class="nav-header"> PENGATURAN</li>
-                        <li class="nav-item">
-                            <a href="{{ route('user') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    User
-                                </p>
-                            </a>
-                        </li>
 
-                        <li class="nav-item mt-3">
-                            <a href="{{ route('logout') }}" class="nav-link active">
-                                <i class="nav-icon fas fa-arrow-left"></i>
-                                <p>
-                                    Keluar
-                                </p>
-                            </a>
-                        </li>
+                                <li class="nav-item mt-3">
+                                    <a href="{{ route('logout') }}" class="nav-link active">
+                                        <i class="nav-icon fas fa-arrow-left"></i>
+                                        <p>
+                                            Keluar
+                                        </p>
+                                    </a>
+                                </li>
 
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
+                            </ul>
+                        </nav>
+                        <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
         </aside>
@@ -131,8 +151,8 @@
         <footer class="main-footer">
 
             <div class="float-right">
-                <strong> &copy; KEJARIHSS</strong>
-                .2021
+                <strong> &copy; APL</strong>
+                .2022
                 {{-- <b>Version</b> 2.0.0 --}}
             </div>
         </footer>

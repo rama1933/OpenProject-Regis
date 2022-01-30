@@ -36,72 +36,96 @@
 
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Tambah Data Pendaftaran</h3>
+                                        <h3 class="card-title">Edit Data pendaftaran</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <form method="post" id="form-create" action="{{ url('/pendaftaran_store') }}"
+                                        @foreach ($pendaftaran as $pendaftaran)
+                                        <form method="post" id="form-edit"
+                                            action="{{ url('/pendaftaran_kuasa_update') }}"
                                             enctype="multipart/form-data">
                                             @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="id" value="{{ $pendaftaran->id }}">
+                                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                            <input type="hidden" name="biodata_id"
+                                                value="{{ auth()->user()->biodata_id }}">
+                                            <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
                                             <div class="row">
-                                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                                <input type="hidden" name="biodata_id"
-                                                    value="{{ auth()->user()->biodata_id }}">
-                                                <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
-                                                {{-- <div class="form-group">
-                                                    <label for="nik" style="color: white">NIK</label>
-                                                    <input type="text" name="nik" class="form-control" maxlength="16"
-                                                        onkeypress="return hanyaAngka(event)" placeholder="NIK"
-                                                        data-rule="minlen:4" required />
-                                                </div> --}}
 
                                                 <div class="form-group col-lg-6">
                                                     <input type="text" class="form-control" name="nopol"
-                                                        placeholder="No Polisi " data-rule="minlen:4" required />
+                                                        placeholder="No Polisi " value="{{ $pendaftaran->nopol }}"
+                                                        data-rule="minlen:4" required />
                                                 </div>
 
-
-
                                                 <div class="form-group col-lg-6">
-                                                    <input type="text" class="form-control" name="no_rangka"
-                                                        placeholder="No Rangka " data-rule="minlen:4" required />
+                                                    <input type="text" value="{{ $pendaftaran->no_rangka }}"
+                                                        class="form-control" name="no_rangka" placeholder="No Rangka "
+                                                        data-rule="minlen:4" required />
                                                 </div>
 
                                                 <div class="form-group col-lg-6">
                                                     <input type="text" class="form-control" name="no_mesin"
-                                                        placeholder="No Mesin" data-rule="minlen:4" required />
+                                                        placeholder="No Mesin" value="{{ $pendaftaran->no_mesin }}"
+                                                        data-rule="minlen:4" required />
                                                 </div>
 
                                                 <div class="form-group col-lg-6">
                                                     <input type="text" class="form-control" name="merk"
-                                                        placeholder="Merk/Type " data-rule="minlen:4" required />
+                                                        placeholder="Merk/Type " value="{{ $pendaftaran->merk }}"
+                                                        data-rule="minlen:4" required />
                                                 </div>
 
                                                 <div class="form-group col-lg-12">
                                                     <input type="text" class="form-control" name="tahun"
-                                                        placeholder="Tahun Pembuatan " data-rule="minlen:4"
-                                                        onkeypress="return hanyaAngka(event)" maxlength="4" required />
+                                                        value="{{ $pendaftaran->tahun }}" placeholder="Tahun Pembuatan "
+                                                        data-rule="minlen:4" onkeypress="return hanyaAngka(event)"
+                                                        maxlength="4" required />
                                                 </div>
 
                                                 <div class="form-group col-lg-12">
-                                                    <label for="ktp">Upload KTP sesuai Notice Pajak</label>
-                                                    <input type="file" class="form-control" name="ktp" required />
+                                                    <label for="ktp">Upload KTP sesuai Notice Pajak <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="ktp" />
                                                 </div>
 
                                                 <div class="form-group col-lg-12">
-                                                    <label for="pajak">Upload Notice Pajak</label>
-                                                    <input type="file" class="form-control" name="pajak" required />
+                                                    <label for="pajak">Upload Notice Pajak <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="pajak" />
                                                 </div>
 
                                                 <div class="form-group col-lg-12">
-                                                    <label for="stnk">Upload STNK asli</label>
-                                                    <input type="file" class="form-control" name="stnk" required />
+                                                    <label for="stnk">Upload STNK asli <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="stnk" />
                                                 </div>
 
                                                 <div class="form-group col-lg-12">
-                                                    <label for="bpkb">Upload BPKB halaman 1-4</label>
-                                                    <input type="file" class="form-control" name="bpkb" required />
+                                                    <label for="bpkb">Upload BPKB halaman 1-4 <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="bpkb" />
                                                 </div>
+
+                                                <div class="form-group col-lg-12">
+                                                    <label for="surat_kuasa">Upload Surat Kuasa
+                                                        <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="surat_kuasa" />
+                                                </div>
+
+
+
+
+
+                                                {{-- <div class="form-group col-lg-12">
+                                                    <input placeholder="Tanggal Pengajuan" type="text"
+                                                        value="{{ $pendaftaran->tanggal }}" onfocus="(this.type='date')"
+                                                        onblur="(this.type='text')" class="form-control textbox-n"
+                                                        name="tanggal" placeholder="Subject" required />
+                                                </div> --}}
+
 
 
                                                 <div class="btn-group col-lg-12 justify-content-center">
@@ -112,11 +136,9 @@
 
                                                 </div>
                                             </div>
-                                            <br>
-
 
                                         </form>
-
+                                        @endforeach
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -135,6 +157,7 @@
 
 @endsection
 @section('js')
+
 
 <script>
     function readURL(input) {
@@ -168,6 +191,7 @@
     $("#imgInp2").change(function(){
         readURL2(this);
     });
+
 
 function hanyaAngka(evt) {
       var charCode = (evt.which) ? evt.which : event.keyCode

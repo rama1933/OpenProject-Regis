@@ -8,6 +8,6 @@ class Pendaftaran extends Model
 {
     //
         public $timestamps = false;
-    protected $table = 'tbl_master_pendaftaran';
+    protected $table = 'tbl_master_pendaftaran_1_tahun';
     protected $guarded = [''];
 }

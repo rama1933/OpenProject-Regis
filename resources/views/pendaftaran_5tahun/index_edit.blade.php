@@ -41,7 +41,8 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         @foreach ($pendaftaran as $pendaftaran)
-                                        <form method="post" id="form-edit" action="{{ url('/pendaftaran_update') }}"
+                                        <form method="post" id="form-edit"
+                                            action="{{ url('/pendaftaran_5tahun_update') }}"
                                             enctype="multipart/form-data">
                                             @csrf
                                             @method('PATCH')
@@ -105,6 +106,20 @@
                                                     <label for="bpkb">Upload BPKB halaman 1-4 <small>(Kosongkan
                                                             Jika Tidak Ingin Mengganti)</small></label>
                                                     <input type="file" class="form-control" name="bpkb" />
+                                                </div>
+
+                                                <div class="form-group col-lg-12">
+                                                    <label for="no_rangka_upload">Upload Gambar Fisik No Rangka
+                                                        <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="no_rangka_upload" />
+                                                </div>
+
+                                                <div class="form-group col-lg-12">
+                                                    <label for="no_mesin_upload">Upload Gambar Fisik No Mesin
+                                                        <small>(Kosongkan
+                                                            Jika Tidak Ingin Mengganti)</small></label>
+                                                    <input type="file" class="form-control" name="no_mesin_upload" />
                                                 </div>
 
 

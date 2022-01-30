@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('role', 20);
             $table->string('password');
+            $table->string('biodata_id')->nullable();
         });
     }
 

@@ -37,16 +37,13 @@
     <header id="header" class="fixed-top ">
         <div class="container-fluid">
 
-            <div class="row justify-content-center ">
-                <div class="col-xl-9 d-flex align-items-center justify-content-between">
-                    <h1 class="logo"><a href="#">SAMSAT KANDANGAN</a></h1>
+            <div class="row float-right">
 
-                    <nav class="nav-menu d-none d-lg-block">
+                {{-- <h1 class="logo"><a href="#">SAMSAT KANDANGAN</a></h1> --}}
 
-                    </nav><!-- .nav-menu -->
 
-                    <a href="{{ route('masuk') }}" class="get-started-btn scrollto">Masuk</a>
-                </div>
+                <a href="{{ route('masuk_form') }}" class="get-started-btn scrollto mt-3 mb-3">Masuk</a>
+                <a href="{{ route('daftar_form') }}" class="get-started-btn scrollto mt-3 mb-3 mr-3">Daftar</a>
             </div>
 
         </div>
@@ -60,96 +57,12 @@
 
                     <div class="card" style="background-color:rgba(0,0,0,0.5);">
                         <div class="card-header">
-                            <h1>Form Pendafataran PKB</h1>
+                            <h1>Selamat Datang</h1>
+                            <h2>Di Aplikasi Pendaftaran Pajak Kendaraan <br> Samsat Kandangan</h2>
+
                         </div>
 
-                        <div class="col-xl-12 mt-4 mb-4">
-                            @if (session('message'))
-                            <div class="alert alert-success alert-dismissible show fade">
-                                <div class="alert-body">
-                                    <button class="close" data-dismiss="alert">
-                                        <span>×</span>
-                                    </button>
-                                    {{ session('message') }}
-                                </div>
-                            </div>
-                            @endif
-                            <form action="{{ url('/landing_store') }}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    {{-- <div class="form-group">
-                                        <label for="nik" style="color: white">NIK</label>
-                                        <input type="text" name="nik" class="form-control" maxlength="16"
-                                            onkeypress="return hanyaAngka(event)" placeholder="NIK" data-rule="minlen:4"
-                                            required />
-                                    </div> --}}
-                                    <div class="form-group col-lg-6">
-                                        <select name="jenis" class="form-control" required>
-                                            <option value="">Jenis Pendaftaran</option>
-                                            <option value="0">PENDAFTARAN ULANG 1 TAHUN</option>
-                                            <option value="1">PENDAFTARAN ULANG 5 TAHUN</option>
-                                            <option value="2">PENDAFTARAN DUPLIKAT BAYAR PAJAK</option>
-                                            <option value="3">PENDAFTARAN DUPLIKAT NON PAJAK</option>
-                                            <option value="4">PENDAFTARAN RUBAH BENTUK BNN</option>
-                                        </select>
-                                    </div>
 
-                                    <div class="form-group col-lg-6">
-                                        <input type="text" class="form-control" name="nopol" placeholder="No Polisi "
-                                            data-rule="minlen:4" required />
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <input type="text" class="form-control" name="nama" placeholder="Nama Pemilik"
-                                            data-rule="minlen:4" required />
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <input type="text" class="form-control" name="no_rangka"
-                                            placeholder="No Rangka " data-rule="minlen:4" required />
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <input type="text" class="form-control" name="no_mesin" placeholder="No Mesin"
-                                            data-rule="minlen:4" required />
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <input type="text" class="form-control" name="merk" placeholder="Merk/Type "
-                                            data-rule="minlen:4" required />
-                                    </div>
-
-                                    <div class="form-group col-lg-12">
-                                        <input type="text" class="form-control" name="tahun"
-                                            placeholder="Tahun Pembuatan " data-rule="minlen:4"
-                                            onkeypress="return hanyaAngka(event)" maxlength="4" required />
-                                    </div>
-
-
-                                    <div class="form-group col-lg-12">
-                                        <textarea class="form-control" name="alamat" rows="5" placeholder="Alamat"
-                                            data-rule="required" required></textarea>
-                                    </div>
-
-
-                                    <div class="form-group col-lg-12">
-                                        <input placeholder="Tanggal Pengajuan" type="text" onfocus="(this.type='date')"
-                                            onblur="(this.type='text')" class="form-control textbox-n" name="tanggal"
-                                            placeholder="Subject" required />
-                                    </div>
-
-
-
-                                    <div class="btn-group col-lg-12 justify-content-center">
-                                        <div class="text-center">
-                                            <button class="btn btn-lg btn-success mr-3" type="submit">Kirim</button>
-                                        </div>
-                                        <div class="text-center"><button class="btn btn-lg btn-danger"
-                                                type="reset">Batal</button></div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
 

@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Pendaftaran;
-use PDF;
 use Illuminate\Http\Request;
+use App\Pendaftaran_duplikat;
+use PDF;
 
-class PendaftaranController extends Controller
+class PendaftaranDuplikatController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran::all();
-        return view('pendaftaran.index', $data);
+        $data['pendaftaran'] = Pendaftaran_duplikat::all();
+        return view('pendaftaran_duplikat.index', $data);
     }
 
     public function index_tambah()
     {
 
-        return view('pendaftaran.index_tambah');
+        return view('pendaftaran_duplikat.index_tambah');
     }
 
     public function index_edit(Request $request, $id)
     {
-        $data['pendaftaran'] = Pendaftaran::where('id', $id)->get();
-        return view('pendaftaran.index_edit', $data);
+        $data['pendaftaran'] = Pendaftaran_duplikat::where('id', $id)->get();
+        return view('pendaftaran_duplikat.index_edit', $data);
     }
 
     public function store(Request $request)
     {
-        $will_insert = $request->except(['ktp','pajak','stnk','bpkb', 'tanggal', '_token']);
+        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload', 'surat_keterangan', 'tanggal', '_token']);
         $tanggal = strtotime($request->input('tanggal'));
         $will_insert['tanggal'] = date('Y-m-d', $tanggal);
         if ($request->hasFile('ktp')) {
@@ -80,14 +80,43 @@ class PendaftaranController extends Controller
             $will_insert['bpkb'] = $path_file;
         }
 
-        $pendaftaran = Pendaftaran::create($will_insert);
+            if ($request->hasFile('no_rangka_upload')) {
 
-        return redirect('pendaftaran')->with('message', 'Berhasil menyimpan data');
+            $path_file = $request->file('no_rangka_upload')->store(
+                'no_rangka_upload',
+                'public'
+            );
+
+            $will_insert['no_rangka_upload'] = $path_file;
+        }
+
+          if ($request->hasFile('no_mesin_upload')) {
+
+            $path_file = $request->file('no_mesin_upload')->store(
+                'no_mesin_upload',
+                'public'
+            );
+
+            $will_insert['no_mesin_upload'] = $path_file;
+        }
+          if ($request->hasFile('surat_keterangan')) {
+
+            $path_file = $request->file('surat_keterangan')->store(
+                'surat_keterangan',
+                'public'
+            );
+
+            $will_insert['surat_keterangan'] = $path_file;
+        }
+
+        $pendaftaran = Pendaftaran_duplikat::create($will_insert);
+
+        return redirect('pendaftaran_duplikat')->with('message', 'Berhasil menyimpan data');
     }
 
     public function update(Request $request)
     {
-        $will_insert = $request->except(['ktp','pajak','stnk','bpkb', 'tanggal', '_token', '_method']);
+        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload','surat_keterangan', 'tanggal', '_token', '_method']);
         $tanggal = strtotime($request->input('tanggal'));
         $will_insert['tanggal'] = date('Y-m-d', $tanggal);
         if ($request->hasFile('ktp')) {
@@ -135,20 +164,49 @@ class PendaftaranController extends Controller
                 'bpkb',
                 'public'
             );
-
             $will_insert['bpkb'] = $path_file;
         }
 
-        $pendaftaran = Pendaftaran::where('id', $request->input('id'))->update($will_insert);
+        if ($request->hasFile('no_rangka_upload')) {
+
+            $path_file = $request->file('no_rangka_upload')->store(
+                'no_rangka_upload',
+                'public'
+            );
+
+            $will_insert['no_rangka_upload'] = $path_file;
+        }
+
+          if ($request->hasFile('no_mesin_upload')) {
+
+            $path_file = $request->file('no_mesin_upload')->store(
+                'no_mesin_upload',
+                'public'
+            );
+
+            $will_insert['no_mesin_upload'] = $path_file;
+        }
+
+         if ($request->hasFile('surat_keterangan')) {
+
+            $path_file = $request->file('surat_keterangan')->store(
+                'surat_keterangan',
+                'public'
+            );
+
+            $will_insert['surat_keterangan'] = $path_file;
+        }
+
+        $pendaftaran = Pendaftaran_duplikat::where('id', $request->input('id'))->update($will_insert);
         // return response()->json(true);
-        return redirect('pendaftaran')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_duplikat')->with('message', 'Berhasil menyimpan data');
     }
 
     public function hapus(Request $request, $id)
     {
 
         // hapus data
-        Pendaftaran::where('id', $id)->delete();
+        Pendaftaran_duplikat::where('id', $id)->delete();
 
         return redirect()->back()->with('message', 'Berhasil menghapus data');
     }
@@ -156,20 +214,20 @@ class PendaftaranController extends Controller
     public function pdf(Request $request)
     {
 
-        $query = Pendaftaran::select(['tbl_master_pendaftaran_1_tahun.*']);
+        $query = Pendaftaran_duplikat::select(['tbl_master_pendaftaran_duplikat.*']);
 
         if ($request->input('tanggal') != null) {
-            $query->where('tbl_master_pendaftaran_1_tahun.tanggal', $request->input('tanggal'));
+            $query->where('tbl_master_pendaftaran_duplikat.tanggal', $request->input('tanggal'));
         }
         // if ($request->input('tahun') != null) {
-        //     $query->whereYear('tbl_master_pendaftaran_1_tahun.tanggal', $request->input('tahun'));
+        //     $query->whereYear('tbl_master_pendaftaran_duplikat.tanggal', $request->input('tahun'));
         // }
         if ($request->input('nopol') != null) {
-            $query->where('tbl_master_pendaftaran_1_tahun.nopol', $request->input('nopol'));
+            $query->where('tbl_master_pendaftaran_duplikat.nopol', $request->input('nopol'));
         }
 
         $data['data'] = $query->get();
-        $pdf = PDF::loadview('pendaftaran.indexpdf', $data)->setPaper('a4', 'landscape');
-        return $pdf->download('Pendaftaran.pdf');
+        $pdf = PDF::loadview('pendaftaran_duplikat.indexpdf', $data)->setPaper('a4', 'landscape');
+        return $pdf->download('Pendaftaran_duplikat.pdf');
     }
 }

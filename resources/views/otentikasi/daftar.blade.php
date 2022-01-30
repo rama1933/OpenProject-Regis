@@ -36,33 +36,53 @@
                 <hr>
                 <hr>
 
-                <form method="POST" action="{{ route('masuk') }}" class="needs-validation" novalidate="">
+                <form method="POST" action="{{ route('daftar') }}" class="needs-validation" novalidate="">
                     @csrf
-                    @if (session('sukses'))
-                    <div class="alert alert-success alert-dismissible show fade">
-                        <div class="alert-body">
-                            <button class="close" data-dismiss="alert">
-                                <span>×</span>
-                            </button>
-                            {{ session('sukses') }}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control item" name="username" id="username"
+                                    placeholder="Username" required>
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                    <div class="form-group">
-                        <label for="email">Username</label>
-                        <input id="username" type="text" class="form-control" name="username" tabindex="1" required
-                            autofocus>
-                        <div class="invalid-feedback">
-                            Please fill in your username
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="password" class="form-control item" name="password" id="password"
+                                    placeholder="Password" required>
+                            </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control item" name="nik" id="nik" placeholder="Nik"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control item" name="nama" id="nama" placeholder="Nama"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control item" name="no_hp" id="no_hp" placeholder="No Hp"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control item" name="alamat" id="alamat"
+                                    placeholder="Alamat" required>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="form-group">
-                        <div class="d-block">
-                            <label for="password" class="control-label">Password</label>
-                        </div>
-                        <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    </div>
+
                     @if (session('message'))
                     <div class="alert alert-danger alert-dismissible show fade">
                         <div class="alert-body">
@@ -75,9 +95,8 @@
                     @endif
                     <div class="form-group">
                         <button type="submit" class="btn btn-info btn-lg btn-block" tabindex="4">
-                            Masuk
+                            Daftar
                         </button>
-                        <p>Belum Punya Akun? <a href="{{ route('daftar_form') }}">Daftar</a></p>
                     </div>
                 </form>
             </div>

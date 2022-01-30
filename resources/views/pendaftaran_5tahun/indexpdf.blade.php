@@ -53,7 +53,7 @@
     <footer>
         <hr>
     </footer>
-    <h3 style="text-align: center;">DATA PENDAFTARAN ULANG 1 TAHUN</h3>
+    <h3 style="text-align: center;">DATA PENDAFTARAN ULANG 5 TAHUN</h3>
     <table style="width:100%">
         <thead>
             <tr>

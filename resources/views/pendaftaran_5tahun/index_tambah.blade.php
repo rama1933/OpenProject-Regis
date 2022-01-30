@@ -40,7 +40,8 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <form method="post" id="form-create" action="{{ url('/pendaftaran_store') }}"
+                                        <form method="post" id="form-create"
+                                            action="{{ url('/pendaftaran_5tahun_store') }}"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
@@ -101,6 +102,18 @@
                                                 <div class="form-group col-lg-12">
                                                     <label for="bpkb">Upload BPKB halaman 1-4</label>
                                                     <input type="file" class="form-control" name="bpkb" required />
+                                                </div>
+
+                                                <div class="form-group col-lg-12">
+                                                    <label for="no_rangka_upload">Upload Gambar Fisik No Rangka</label>
+                                                    <input type="file" class="form-control" name="no_rangka_upload"
+                                                        required />
+                                                </div>
+
+                                                <div class="form-group col-lg-12">
+                                                    <label for="no_mesin_upload">Upload Gambar Fisik No Mesin</label>
+                                                    <input type="file" class="form-control" name="no_mesin_upload"
+                                                        required />
                                                 </div>
 
 

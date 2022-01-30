@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TblMasterPendaftaran extends Migration
+class TblMasterPendaftaran1TrahunKuasa extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class TblMasterPendaftaran extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_master_pendaftaran_1_tahun', function (Blueprint $table) {
+        Schema::create('tbl_master_pendaftaran_1_tahun_kuasa', function (Blueprint $table) {
             $table->id();
             // $table->string('jenis', 255)->nullable();
             $table->unsignedBigInteger('user_id');
@@ -28,6 +28,7 @@ class TblMasterPendaftaran extends Migration
             $table->string('pajak', 255)->nullable();
             $table->string('stnk', 255)->nullable();
             $table->string('bpkb', 255)->nullable();
+             $table->string('surat_kuasa', 255)->nullable();
             $table->enum('status', ['0','1','2'])->default('0');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('biodata_id')->references('id')->on('tbl_master_biodata')->onDelete('cascade');
@@ -42,6 +43,6 @@ class TblMasterPendaftaran extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_master_pendaftaran');
+        Schema::dropIfExists('tbl_master_pendaftaran_1_tahun_kuasa');
     }
 }
