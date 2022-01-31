@@ -10,7 +10,7 @@ class PendaftaranController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran::all();
+        $data['pendaftaran'] = Pendaftaran::where('user_id',auth()->user()->id)->get();
         return view('pendaftaran.index', $data);
     }
 

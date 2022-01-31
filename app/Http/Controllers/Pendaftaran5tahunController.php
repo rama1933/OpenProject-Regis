@@ -10,7 +10,7 @@ class Pendaftaran5tahunController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran_5tahun::all();
+        $data['pendaftaran'] = Pendaftaran_5tahun::where('user_id',auth()->user()->id)->get();
         return view('pendaftaran_5tahun.index', $data);
     }
 

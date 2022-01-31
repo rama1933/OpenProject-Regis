@@ -2,33 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Pendaftaran_balik;
 use Illuminate\Http\Request;
+use App\Pendaftaran_duplikat;
 use PDF;
-
-class PendaftaranBalikController extends Controller
+class PendaftaranAdminDuplikatController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran_balik::where('user_id',auth()->user()->id)->get();
-        return view('pendaftaran_balik.index', $data);
+        $data['pendaftaran'] = Pendaftaran_duplikat::get();
+        return view('admin.pendaftaran_duplikat.index', $data);
     }
 
     public function index_tambah()
     {
 
-        return view('pendaftaran_balik.index_tambah');
+        return view('admin.pendaftaran_duplikat.index_tambah');
     }
 
     public function index_edit(Request $request, $id)
     {
-        $data['pendaftaran'] = Pendaftaran_balik::where('id', $id)->get();
-        return view('pendaftaran_balik.index_edit', $data);
+        $data['pendaftaran'] = Pendaftaran_duplikat::where('id', $id)->get();
+        return view('admin.pendaftaran_duplikat.index_edit', $data);
     }
 
     public function store(Request $request)
     {
-        $will_insert = $request->except(['ktp','ktp_baru','kwitansi_pembelian','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload', 'tanggal', '_token']);
+        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload', 'surat_keterangan', 'tanggal', '_token']);
         $tanggal = strtotime($request->input('tanggal'));
         $will_insert['tanggal'] = date('Y-m-d', $tanggal);
         if ($request->hasFile('ktp')) {
@@ -49,27 +48,6 @@ class PendaftaranBalikController extends Controller
 
             $will_insert['ktp'] = $path_file;
         }
-
-        if ($request->hasFile('ktp_baru')) {
-
-            $path_file = $request->file('ktp_baru')->store(
-                'ktp_baru',
-                'public'
-            );
-
-            $will_insert['ktp_baru'] = $path_file;
-        }
-
-        if ($request->hasFile('kwitansi_pembelian')) {
-
-            $path_file = $request->file('kwitansi_pembelian')->store(
-                'kwitansi_pembelian',
-                'public'
-            );
-
-            $will_insert['kwitansi_pembelian'] = $path_file;
-        }
-
 
         if ($request->hasFile('pajak')) {
 
@@ -120,15 +98,24 @@ class PendaftaranBalikController extends Controller
 
             $will_insert['no_mesin_upload'] = $path_file;
         }
+          if ($request->hasFile('surat_keterangan')) {
 
-        $pendaftaran = Pendaftaran_balik::create($will_insert);
+            $path_file = $request->file('surat_keterangan')->store(
+                'surat_keterangan',
+                'public'
+            );
 
-        return redirect('pendaftaran_balik')->with('message', 'Berhasil menyimpan data');
+            $will_insert['surat_keterangan'] = $path_file;
+        }
+
+        $pendaftaran = Pendaftaran_duplikat::create($will_insert);
+
+        return redirect('pendaftaran_admin_duplikat')->with('message', 'Berhasil menyimpan data');
     }
 
     public function update(Request $request)
     {
-        $will_insert = $request->except(['ktp','ktp_baru','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload','kwitansi_pembelian', 'tanggal', '_token', '_method']);
+        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload','surat_keterangan', 'tanggal', '_token', '_method']);
         $tanggal = strtotime($request->input('tanggal'));
         $will_insert['tanggal'] = date('Y-m-d', $tanggal);
         if ($request->hasFile('ktp')) {
@@ -148,26 +135,6 @@ class PendaftaranBalikController extends Controller
             );
 
             $will_insert['ktp'] = $path_file;
-        }
-
-         if ($request->hasFile('ktp_baru')) {
-
-            $path_file = $request->file('ktp_baru')->store(
-                'ktp_baru',
-                'public'
-            );
-
-            $will_insert['ktp_baru'] = $path_file;
-        }
-
-        if ($request->hasFile('kwitansi_pembelian')) {
-
-            $path_file = $request->file('kwitansi_pembelian')->store(
-                'kwitansi_pembelian',
-                'public'
-            );
-
-            $will_insert['kwitansi_pembelian'] = $path_file;
         }
 
         if ($request->hasFile('pajak')) {
@@ -219,16 +186,26 @@ class PendaftaranBalikController extends Controller
             $will_insert['no_mesin_upload'] = $path_file;
         }
 
-        $pendaftaran = Pendaftaran_balik::where('id', $request->input('id'))->update($will_insert);
+         if ($request->hasFile('surat_keterangan')) {
+
+            $path_file = $request->file('surat_keterangan')->store(
+                'surat_keterangan',
+                'public'
+            );
+
+            $will_insert['surat_keterangan'] = $path_file;
+        }
+
+        $pendaftaran = Pendaftaran_duplikat::where('id', $request->input('id'))->update($will_insert);
         // return response()->json(true);
-        return redirect('pendaftaran_balik')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_admin_duplikat')->with('message', 'Berhasil menyimpan data');
     }
 
     public function hapus(Request $request, $id)
     {
 
         // hapus data
-        Pendaftaran_balik::where('id', $id)->delete();
+        Pendaftaran_duplikat::where('id', $id)->delete();
 
         return redirect()->back()->with('message', 'Berhasil menghapus data');
     }
@@ -236,20 +213,27 @@ class PendaftaranBalikController extends Controller
     public function pdf(Request $request)
     {
 
-        $query = Pendaftaran_balik::select(['tbl_master_pendaftaran_balik_nama.*']);
+        $query = Pendaftaran_duplikat::select(['tbl_master_pendaftaran_duplikat.*']);
 
         if ($request->input('tanggal') != null) {
-            $query->where('tbl_master_pendaftaran_balik_nama.tanggal', $request->input('tanggal'));
+            $query->where('tbl_master_pendaftaran_duplikat.tanggal', $request->input('tanggal'));
         }
         // if ($request->input('tahun') != null) {
-        //     $query->whereYear('tbl_master_pendaftaran_balik_nama.tanggal', $request->input('tahun'));
+        //     $query->whereYear('tbl_master_pendaftaran_duplikat.tanggal', $request->input('tahun'));
         // }
         if ($request->input('nopol') != null) {
-            $query->where('tbl_master_pendaftaran_balik_nama.nopol', $request->input('nopol'));
+            $query->where('tbl_master_pendaftaran_duplikat.nopol', $request->input('nopol'));
         }
 
         $data['data'] = $query->get();
-        $pdf = PDF::loadview('pendaftaran_balik.indexpdf', $data)->setPaper('a4', 'landscape');
-        return $pdf->download('Pendaftaran_balik.pdf');
+        $pdf = PDF::loadview('admin.pendaftaran_duplikat.indexpdf', $data)->setPaper('a4', 'landscape');
+        return $pdf->download('Pendaftaran_duplikat.pdf');
+    }
+
+     public function status(Request $request)
+    {
+        $will_insert = $request->except(['_token', '_method']);
+        $pendaftaran = Pendaftaran_duplikat::where('id', $request->input('id'))->update($will_insert);
+        return response()->json(true);
     }
 }

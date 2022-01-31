@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Pendaftaran_kuasa;
-use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Http\Request;
 
-class PendaftaranKuasaController extends Controller
+class PendaftaranAdminKuasaController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran_kuasa::where('user_id',auth()->user()->id)->get();
-        return view('pendaftaran_kuasa.index', $data);
+        $data['pendaftaran'] = Pendaftaran_kuasa::get();
+        return view('admin.pendaftaran_kuasa.index', $data);
     }
 
     public function index_tambah()
     {
 
-        return view('pendaftaran_kuasa.index_tambah');
+        return view('admin.pendaftaran_kuasa.index_tambah');
     }
 
     public function index_edit(Request $request, $id)
     {
         $data['pendaftaran'] = Pendaftaran_kuasa::where('id', $id)->get();
-        return view('pendaftaran_kuasa.index_edit', $data);
+        return view('admin.pendaftaran_kuasa.index_edit', $data);
     }
 
     public function store(Request $request)
@@ -92,7 +92,7 @@ class PendaftaranKuasaController extends Controller
 
         $pendaftaran = Pendaftaran_kuasa::create($will_insert);
 
-        return redirect('pendaftaran_kuasa')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_admin_kuasa')->with('message', 'Berhasil menyimpan data');
     }
 
     public function update(Request $request)
@@ -161,7 +161,7 @@ class PendaftaranKuasaController extends Controller
 
         $pendaftaran = Pendaftaran_kuasa::where('id', $request->input('id'))->update($will_insert);
         // return response()->json(true);
-        return redirect('pendaftaran_kuasa')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_admin_kuasa')->with('message', 'Berhasil menyimpan data');
     }
 
     public function hapus(Request $request, $id)
@@ -189,7 +189,14 @@ class PendaftaranKuasaController extends Controller
         }
 
         $data['data'] = $query->get();
-        $pdf = PDF::loadview('pendaftaran_kuasa.indexpdf', $data)->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('admin.pendaftaran_kuasa.indexpdf', $data)->setPaper('a4', 'landscape');
         return $pdf->download('Pendaftaran_kuasa.pdf');
+    }
+
+     public function status(Request $request)
+    {
+        $will_insert = $request->except(['_token', '_method']);
+        $pendaftaran = Pendaftaran_kuasa::where('id', $request->input('id'))->update($will_insert);
+        return response()->json(true);
     }
 }

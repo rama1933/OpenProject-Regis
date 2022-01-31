@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Pendaftaran_kuasa;
-use Illuminate\Http\Request;
+use App\Pendaftaran_5tahun;
 use PDF;
+use Illuminate\Http\Request;
 
-class PendaftaranKuasaController extends Controller
+class PendaftaranAdmin5tahunController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran_kuasa::where('user_id',auth()->user()->id)->get();
-        return view('pendaftaran_kuasa.index', $data);
+        $data['pendaftaran'] = Pendaftaran_5tahun::get();
+        return view('admin.pendaftaran_5tahun.index', $data);
     }
 
     public function index_tambah()
     {
 
-        return view('pendaftaran_kuasa.index_tambah');
+        return view('admin.pendaftaran_5tahun.index_tambah');
     }
 
     public function index_edit(Request $request, $id)
     {
-        $data['pendaftaran'] = Pendaftaran_kuasa::where('id', $id)->get();
-        return view('pendaftaran_kuasa.index_edit', $data);
+        $data['pendaftaran'] = Pendaftaran_5tahun::where('id', $id)->get();
+        return view('admin.pendaftaran_5tahun.index_edit', $data);
     }
 
     public function store(Request $request)
     {
-        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','surat_kuasa', 'tanggal', '_token']);
+        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload', 'tanggal', '_token']);
         $tanggal = strtotime($request->input('tanggal'));
         $will_insert['tanggal'] = date('Y-m-d', $tanggal);
         if ($request->hasFile('ktp')) {
@@ -80,24 +80,34 @@ class PendaftaranKuasaController extends Controller
             $will_insert['bpkb'] = $path_file;
         }
 
-         if ($request->hasFile('surat_kuasa')) {
+            if ($request->hasFile('no_rangka_upload')) {
 
-            $path_file = $request->file('surat_kuasa')->store(
-                'surat_kuasa',
+            $path_file = $request->file('no_rangka_upload')->store(
+                'no_rangka_upload',
                 'public'
             );
 
-            $will_insert['surat_kuasa'] = $path_file;
+            $will_insert['no_rangka_upload'] = $path_file;
         }
 
-        $pendaftaran = Pendaftaran_kuasa::create($will_insert);
+          if ($request->hasFile('no_mesin_upload')) {
 
-        return redirect('pendaftaran_kuasa')->with('message', 'Berhasil menyimpan data');
+            $path_file = $request->file('no_mesin_upload')->store(
+                'no_mesin_upload',
+                'public'
+            );
+
+            $will_insert['no_mesin_upload'] = $path_file;
+        }
+
+        $pendaftaran = Pendaftaran_5tahun::create($will_insert);
+
+        return redirect('pendaftaran_admin_5tahun')->with('message', 'Berhasil menyimpan data');
     }
 
     public function update(Request $request)
     {
-        $will_insert = $request->except(['ktp','pajak','stnk','bpkb', 'tanggal','surat_kuasa', '_token', '_method']);
+        $will_insert = $request->except(['ktp','pajak','stnk','bpkb','no_mesin_upload','no_rangka_upload', 'tanggal', '_token', '_method']);
         $tanggal = strtotime($request->input('tanggal'));
         $will_insert['tanggal'] = date('Y-m-d', $tanggal);
         if ($request->hasFile('ktp')) {
@@ -145,30 +155,39 @@ class PendaftaranKuasaController extends Controller
                 'bpkb',
                 'public'
             );
-
             $will_insert['bpkb'] = $path_file;
         }
 
-         if ($request->hasFile('surat_kuasa')) {
+        if ($request->hasFile('no_rangka_upload')) {
 
-            $path_file = $request->file('surat_kuasa')->store(
-                'surat_kuasa',
+            $path_file = $request->file('no_rangka_upload')->store(
+                'no_rangka_upload',
                 'public'
             );
 
-            $will_insert['surat_kuasa'] = $path_file;
+            $will_insert['no_rangka_upload'] = $path_file;
         }
 
-        $pendaftaran = Pendaftaran_kuasa::where('id', $request->input('id'))->update($will_insert);
+          if ($request->hasFile('no_mesin_upload')) {
+
+            $path_file = $request->file('no_mesin_upload')->store(
+                'no_mesin_upload',
+                'public'
+            );
+
+            $will_insert['no_mesin_upload'] = $path_file;
+        }
+
+        $pendaftaran = Pendaftaran_5tahun::where('id', $request->input('id'))->update($will_insert);
         // return response()->json(true);
-        return redirect('pendaftaran_kuasa')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_admin_5tahun')->with('message', 'Berhasil menyimpan data');
     }
 
     public function hapus(Request $request, $id)
     {
 
         // hapus data
-        Pendaftaran_kuasa::where('id', $id)->delete();
+        Pendaftaran_5tahun::where('id', $id)->delete();
 
         return redirect()->back()->with('message', 'Berhasil menghapus data');
     }
@@ -176,20 +195,27 @@ class PendaftaranKuasaController extends Controller
     public function pdf(Request $request)
     {
 
-        $query = Pendaftaran_kuasa::select(['tbl_master_pendaftaran_1_tahun_kuasa.*']);
+        $query = Pendaftaran_5tahun::select(['tbl_master_pendaftaran_5_tahun.*']);
 
         if ($request->input('tanggal') != null) {
-            $query->where('tbl_master_pendaftaran_1_tahun_kuasa.tanggal', $request->input('tanggal'));
+            $query->where('tbl_master_pendaftaran_5_tahun.tanggal', $request->input('tanggal'));
         }
         // if ($request->input('tahun') != null) {
-        //     $query->whereYear('tbl_master_pendaftaran_1_tahun_kuasa.tanggal', $request->input('tahun'));
+        //     $query->whereYear('tbl_master_pendaftaran_5_tahun.tanggal', $request->input('tahun'));
         // }
         if ($request->input('nopol') != null) {
-            $query->where('tbl_master_pendaftaran_1_tahun_kuasa.nopol', $request->input('nopol'));
+            $query->where('tbl_master_pendaftaran_5_tahun.nopol', $request->input('nopol'));
         }
 
         $data['data'] = $query->get();
-        $pdf = PDF::loadview('pendaftaran_kuasa.indexpdf', $data)->setPaper('a4', 'landscape');
-        return $pdf->download('Pendaftaran_kuasa.pdf');
+        $pdf = PDF::loadview('admin.pendaftaran_5tahun.indexpdf', $data)->setPaper('a4', 'landscape');
+        return $pdf->download('Pendaftaran_5tahun.pdf');
+    }
+
+    public function status(Request $request)
+    {
+        $will_insert = $request->except(['_token', '_method']);
+        $pendaftaran = Pendaftaran_5tahun::where('id', $request->input('id'))->update($will_insert);
+        return response()->json(true);
     }
 }

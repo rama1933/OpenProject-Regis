@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Pendaftaran_balik;
-use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Http\Request;
 
-class PendaftaranBalikController extends Controller
+class PendaftaranAdminBalikController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran_balik::where('user_id',auth()->user()->id)->get();
-        return view('pendaftaran_balik.index', $data);
+        $data['pendaftaran'] = Pendaftaran_balik::get();
+        return view('admin.pendaftaran_balik.index', $data);
     }
 
     public function index_tambah()
     {
 
-        return view('pendaftaran_balik.index_tambah');
+        return view('admin.pendaftaran_balik.index_tambah');
     }
 
     public function index_edit(Request $request, $id)
     {
         $data['pendaftaran'] = Pendaftaran_balik::where('id', $id)->get();
-        return view('pendaftaran_balik.index_edit', $data);
+        return view('admin.pendaftaran_balik.index_edit', $data);
     }
 
     public function store(Request $request)
@@ -123,7 +123,7 @@ class PendaftaranBalikController extends Controller
 
         $pendaftaran = Pendaftaran_balik::create($will_insert);
 
-        return redirect('pendaftaran_balik')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_admin_balik')->with('message', 'Berhasil menyimpan data');
     }
 
     public function update(Request $request)
@@ -221,7 +221,7 @@ class PendaftaranBalikController extends Controller
 
         $pendaftaran = Pendaftaran_balik::where('id', $request->input('id'))->update($will_insert);
         // return response()->json(true);
-        return redirect('pendaftaran_balik')->with('message', 'Berhasil menyimpan data');
+        return redirect('pendaftaran_admin_balik')->with('message', 'Berhasil menyimpan data');
     }
 
     public function hapus(Request $request, $id)
@@ -249,7 +249,14 @@ class PendaftaranBalikController extends Controller
         }
 
         $data['data'] = $query->get();
-        $pdf = PDF::loadview('pendaftaran_balik.indexpdf', $data)->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('admin.pendaftaran_balik.indexpdf', $data)->setPaper('a4', 'landscape');
         return $pdf->download('Pendaftaran_balik.pdf');
+    }
+
+    public function status(Request $request)
+    {
+        $will_insert = $request->except(['_token', '_method']);
+        $pendaftaran = Pendaftaran_balik::where('id', $request->input('id'))->update($will_insert);
+        return response()->json(true);
     }
 }

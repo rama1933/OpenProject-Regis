@@ -105,7 +105,7 @@
                                 <li class="nav-header"> DATA</li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('dashboard_user') }}" class="nav-link">
+                                    <a href="{{ route('dashboard_admin') }}" class="nav-link">
                                         <i class="nav-icon fas fa-fire"></i>
                                         <p>
                                             Dashboard

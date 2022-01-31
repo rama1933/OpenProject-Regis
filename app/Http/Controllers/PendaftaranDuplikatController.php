@@ -10,7 +10,7 @@ class PendaftaranDuplikatController extends Controller
 {
     public function index()
     {
-        $data['pendaftaran'] = Pendaftaran_duplikat::all();
+        $data['pendaftaran'] = Pendaftaran_duplikat::where('user_id',auth()->user()->id)->get();
         return view('pendaftaran_duplikat.index', $data);
     }
 

@@ -59,8 +59,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        Selamat Datang <b>{{ auth()->user()->username }}</b>, <br> Silahkan Pilih
-                                        Pendaftaran Yang Akan Anda Lakukan
+                                        Selamat Datang <b>{{ auth()->user()->username }}</b>
                                     </div>
                                     <!-- /.card-header -->
                                     {{-- <div class="card-body">
@@ -71,10 +70,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12">
-                                        <a href="{{ route('pendaftaran') }}">
+                                        <a href="{{ route('pendaftaran_admin') }}">
                                             <div class="info-box">
-                                                <span class="info-box-icon bg-info elevation-1"><i
-                                                        class="fas fa-book"></i></span>
+                                                <span class="info-box-icon bg-info elevation-1">{{
+                                                    $pendaftaran }}</span>
 
                                                 <div class="info-box-content">
                                                     <h3 style="color: black">Pendaftaran Ulang 1 Tahun</h3>
@@ -86,10 +85,10 @@
                                         <!-- /.info-box -->
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12">
-                                        <a href="{{ route('pendaftaran_kuasa') }}">
+                                        <a href="{{ route('pendaftaran_admin_kuasa') }}">
                                             <div class="info-box">
-                                                <span class="info-box-icon bg-primary elevation-1"><i
-                                                        class="fas fa-book"></i></span>
+                                                <span class="info-box-icon bg-primary elevation-1">{{
+                                                    $pendaftaran_kuasa }}</span>
 
                                                 <div class="info-box-content">
                                                     <h3 style="color: black">Pendaftaran Ulang 1 Tahun Bukan
@@ -103,10 +102,10 @@
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-12">
-                                        <a href="{{ route('pendaftaran_5tahun') }}">
+                                        <a href="{{ route('pendaftaran_admin_5tahun') }}">
                                             <div class="info-box">
-                                                <span class="info-box-icon bg-success elevation-1"><i
-                                                        class="fas fa-book"></i></span>
+                                                <span class="info-box-icon bg-success elevation-1">{{
+                                                    $pendaftaran_5tahun }}</span>
 
                                                 <div class="info-box-content">
                                                     <h3 style="color: black">Pendaftaran Ulang 5 Tahun </h3>
@@ -119,10 +118,10 @@
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-12">
-                                        <a href="{{ route('pendaftaran_duplikat') }}">
+                                        <a href="{{ route('pendaftaran_admin_duplikat') }}">
                                             <div class="info-box">
-                                                <span class="info-box-icon bg-warning elevation-1"><i
-                                                        class="fas fa-book"></i></span>
+                                                <span class="info-box-icon bg-warning elevation-1">{{
+                                                    $pendaftaran_duplikat }}</span>
 
                                                 <div class="info-box-content">
                                                     <h3 style="color: black">Pendaftaran Duplikat </h3>
@@ -135,10 +134,10 @@
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-12">
-                                        <a href="{{ route('pendaftaran_balik') }}">
+                                        <a href="{{ route('pendaftaran_admin_balik') }}">
                                             <div class="info-box">
-                                                <span class="info-box-icon bg-danger elevation-1"><i
-                                                        class="fas fa-book"></i></span>
+                                                <span class="info-box-icon bg-danger elevation-1">{{
+                                                    $pendaftaran_balik }}</span>
 
                                                 <div class="info-box-content">
                                                     <h3 style="color: black">Pendaftaran Bea Balik Nama (BBN)
