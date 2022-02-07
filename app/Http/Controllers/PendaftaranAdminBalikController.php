@@ -238,11 +238,13 @@ class PendaftaranAdminBalikController extends Controller
 
         $query = Pendaftaran_balik::select(['tbl_master_pendaftaran_balik_nama.*']);
 
-        if ($request->input('tanggal') != null) {
-            $query->where('tbl_master_pendaftaran_balik_nama.tanggal', $request->input('tanggal'));
+        if ($request->input('tanggal') != null and $request->input('tanggal_akhir') != null) {
+            $from = $request->input('tanggal');
+            $to = $request->input('tanggal_akhir');
+            $query->whereBetween('tbl_master_pendaftaran_balik_nama.tanggal', [$from, $to]);
         }
-        // if ($request->input('tahun') != null) {
-        //     $query->whereYear('tbl_master_pendaftaran_balik_nama.tanggal', $request->input('tahun'));
+        // if ($request->input('tanggal') != null) {
+        //     $query->where('tbl_master_pendaftaran_balik_nama.tanggal', $request->input('tanggal'));
         // }
         if ($request->input('nopol') != null) {
             $query->where('tbl_master_pendaftaran_balik_nama.nopol', $request->input('nopol'));

@@ -73,8 +73,12 @@
                                                     <input type="text" name="nopol" class=" form-control">
                                                 </div>
                                                 <div class="form-group mr-2">
-                                                    <label class="mr-2" for="">Tanggal</label>
+                                                    <label class="mr-2" for="">Dari Tanggal</label>
                                                     <input type="date" name="tanggal" class="form-control">
+                                                </div>
+                                                <div class="form-group mr-2">
+                                                    <label class="mr-2" for="">Sampai Tanggal</label>
+                                                    <input type="date" name="tanggal_akhir" class="form-control">
                                                 </div>
                                                 {{-- <div class="form-group mr-2">
                                                     <label class="mr-2" for="">Tahun</label>

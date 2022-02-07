@@ -178,11 +178,13 @@ class PendaftaranAdminKuasaController extends Controller
 
         $query = Pendaftaran_kuasa::select(['tbl_master_pendaftaran_1_tahun_kuasa.*']);
 
-        if ($request->input('tanggal') != null) {
-            $query->where('tbl_master_pendaftaran_1_tahun_kuasa.tanggal', $request->input('tanggal'));
+          if ($request->input('tanggal') != null and $request->input('tanggal_akhir') != null) {
+            $from = $request->input('tanggal');
+            $to = $request->input('tanggal_akhir');
+            $query->whereBetween('tbl_master_pendaftaran_1_tahun_kuasa.tanggal', [$from, $to]);
         }
-        // if ($request->input('tahun') != null) {
-        //     $query->whereYear('tbl_master_pendaftaran_1_tahun_kuasa.tanggal', $request->input('tahun'));
+        // if ($request->input('tanggal') != null) {
+        //     $query->where('tbl_master_pendaftaran_1_tahun_kuasa.tanggal', $request->input('tanggal'));
         // }
         if ($request->input('nopol') != null) {
             $query->where('tbl_master_pendaftaran_1_tahun_kuasa.nopol', $request->input('nopol'));

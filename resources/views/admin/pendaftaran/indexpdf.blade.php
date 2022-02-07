@@ -53,6 +53,21 @@
     <footer>
         <hr>
     </footer>
+    <div class="row" style="text-align: center">
+        <div class="column">
+
+        </div>
+        <div class="">
+            <img style="float: left;width:80px;" src="{{  public_path() }}/logo/prov.png">
+            <h3>PEMERINTAH PROVINSI KALIMANTAN SELATAN <br> BADAN KEUANGAN DAERAH <br>UNIT PELAYANAN PENDAPATAN DAERAH
+                (UPPD) <br> KANDANGAN</h3>
+            <hr style="margin-top: 10px;">
+        </div>
+
+        <div style="text-align: center;float:right;width: 20%;margin-top: -10px;margin-bottom: -10px;">
+            <p>Tanggal Cetak : {{ date('d-m-Y') }}</p>
+        </div>
+    </div>
     <h3 style="text-align: center;">DATA PENDAFTARAN ULANG 1 TAHUN</h3>
     <table style="width:100%">
         <thead>
