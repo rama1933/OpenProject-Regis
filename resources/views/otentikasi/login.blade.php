@@ -7,7 +7,7 @@
     <title>Masuk Admin</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ url('') }}/logo/hss.png" rel="icon">
+    <link href="{{ url('') }}/logo/prov.png" rel="icon">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ url('') }}/plugins/fontawesome-free/css/all.min.css">

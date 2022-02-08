@@ -11,7 +11,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ url('') }}/logo/hss.png" rel="icon">
+    <link href="{{ url('') }}/logo/prov.png" rel="icon">
 
     <!-- Google Fonts -->
     <link
